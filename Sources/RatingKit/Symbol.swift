@@ -10,25 +10,26 @@ import SwiftUI
 struct Symbol: View {
   
   var height: CGFloat
+  var weight: Font.Weight = .light
+  var ratio: CGFloat = 1
   var value: CGFloat
   var symbol: String
-  var side: CGFloat { height - 0.1*height }
+  var side: CGFloat { height - 0.1*height*ratio }
   var foregroundColor: Color = .yellow
   var backgroundColor: Color = Color(UIColor.systemGray4)
   
   var body: some View {
     ZStack {
     Image(systemName: symbol)
-      .font(Font.system(size: side, weight: .light))
       .frame(width: height, height: height)
       .foregroundColor(backgroundColor)//(UIColor.systemGray4.color)
       .mask(Rectangle().padding(.leading, height * value))
     Image(systemName: "\(symbol).fill")
-      .font(Font.system(size: side, weight: .light))
       .foregroundColor(foregroundColor)
       .frame(width: height, height: height)
       .mask(Rectangle().padding(.trailing, height * (1 - value)))
     }
+    .font(Font.system(size: side, weight: weight))
     
   }
 }

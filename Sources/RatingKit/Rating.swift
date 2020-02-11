@@ -10,8 +10,10 @@ import SwiftUI
 
 public struct Rating: View {
   var height: CGFloat = 20
+  var weight: Font.Weight = .light
+  var ratio: CGFloat = 1
   var value: CGFloat
-  var stars: Int = 5
+  var max: Int = 5
   var symbol: String = "star"
   var foregroundColor: Color = .yellow
   var backgroundColor: Color = Color(UIColor.systemGray4)
@@ -19,12 +21,14 @@ public struct Rating: View {
   
   public var body: some View {
     HStack(spacing: spacing) {
-      ForEach(1...stars, id: \.self) { number in
+      ForEach(1...max, id: \.self) { number in
         return Symbol(height: self.height,
-                     value: self.starValue(from: number),
-                     symbol: self.symbol,
-                     foregroundColor: self.foregroundColor,
-                     backgroundColor: self.backgroundColor)
+                      weight: self.weight,
+                      ratio: self.ratio,
+                      value: self.starValue(from: number),
+                      symbol: self.symbol,
+                      foregroundColor: self.foregroundColor,
+                      backgroundColor: self.backgroundColor)
       }
     }
   }
@@ -34,14 +38,19 @@ public struct Rating: View {
   }
   
   public init(height: CGFloat = 20,
-    value: CGFloat,
-    stars: Int = 5,
-    symbol: String = "star",
-    foregroundColor: Color = .yellow,
-    backgroundColor: Color = Color(UIColor.systemGray4),
-    spacing: CGFloat = 5) {
+              weight: Font.Weight = .light,
+              ratio: CGFloat = 1,
+              value: CGFloat,
+              max: Int = 5,
+              symbol: String = "star",
+              foregroundColor: Color = .yellow,
+              backgroundColor: Color = Color(UIColor.systemGray4),
+              spacing: CGFloat = 5) {
     self.value = value
-    self.stars = stars
+    self.height = height
+    self.weight = weight
+    self.ratio = ratio
+    self.max = max
     self.symbol = symbol
     self.foregroundColor = foregroundColor
     self.backgroundColor = backgroundColor
@@ -51,6 +60,6 @@ public struct Rating: View {
 
 struct Rating_Previews: PreviewProvider {
   static var previews: some View {
-    Rating(height: 20, value: 2.2, stars: 5)
+    Rating(height: 20, value: 2.2, max: 5)
   }
 }
